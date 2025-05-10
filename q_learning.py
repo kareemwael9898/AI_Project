@@ -30,7 +30,7 @@ def draw_training_state(env, screen, font, episode, epsilon, total_reward):
                 pygame.draw.rect(screen, WHITE, rect)           
 
             if (y, x) in env.visited:
-                pygame.draw.rect(screen, RED, rect, 1)
+                pygame.draw.rect(screen, YELLOW, rect)
 
     # Draw grid lines
     for y in range(GRID_HEIGHT):
@@ -101,11 +101,6 @@ def train_q_learning(env, episodes=1000, alpha=0.1, gamma=0.95,
         if(episodes % 10 == 0 ):
             print(f"Episode: {episode}, Total Reward: {total_reward:.1f}, Epsilon: {epsilon:.2f}")
         
-        # stop training if the last 10 episodes total reward does not improve by 10%
-        if episode > 10 and total_reward < 0.1 * (episodes / 10):
-            print(f"Stopping training at episode {episode} due to lack of improvement.")
-            break
-
     return q_table
 
 def extract_path(q_table, env, max_steps=1000):

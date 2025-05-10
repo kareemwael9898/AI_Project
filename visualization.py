@@ -36,9 +36,13 @@ def draw_maze(screen, env, path=None):
         for i in range(1, len(path)):
             py, px = path[i-1]
             ny, nx = path[i]
-            pygame.draw.line(screen, GREEN, 
-                            (px * CELL_SIZE + CELL_SIZE//2, py * CELL_SIZE + CELL_SIZE//2),
-                            (nx * CELL_SIZE + CELL_SIZE//2, ny * CELL_SIZE + CELL_SIZE//2), 3)
+
+            rect3 = pygame.Rect(px * CELL_SIZE, py * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+            pygame.draw.rect(screen,GREEN , rect3)
+            pygame.draw.rect(screen,GRAY, rect3, 1)
+            # pygame.draw.line(screen, GREEN, 
+                            # (px * CELL_SIZE + CELL_SIZE//2, py * CELL_SIZE + CELL_SIZE//2),
+                            # (nx * CELL_SIZE + CELL_SIZE//2, ny * CELL_SIZE + CELL_SIZE//2), 3)
     
     ay, ax = env.agent
     center = (ax * CELL_SIZE + CELL_SIZE//2, ay * CELL_SIZE + CELL_SIZE//2)
