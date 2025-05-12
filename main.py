@@ -32,24 +32,31 @@ def main_menu():
 
     running = True
     while running:
-        screen.fill((0, 0, 0))
+        # Fill the screen color
+        screen.fill(YELLOW)
         mouse_pos = pygame.mouse.get_pos()
+
+        # Display the maze size
+        maze_size = f"Current Maze Size: {GRID_WIDTH} x {GRID_HEIGHT}" 
+        font = pygame.font.Font(None, 36)
+        text_surface = font.render(maze_size, True, (0, 0, 0))
+        text_rect = text_surface.get_rect(center=(400, 100))
+        screen.blit(text_surface, text_rect)
 
         draw_button(screen, "Random Maze", pygame.Rect(300, 200, 200, 50), (0, 128, 0), (0, 255, 0), mouse_pos)
         draw_button(screen, "Manual Maze", pygame.Rect(300, 300, 200, 50), (0, 128, 0), (0, 255, 0), mouse_pos)
         draw_button(screen, "Exit", pygame.Rect(300, 400, 200, 50), (128, 0, 0), (255, 0, 0), mouse_pos)
-        # Display the maze size
-        maze_size = f"Current Maze Size: {GRID_WIDTH} x {GRID_HEIGHT}" 
-        font = pygame.font.Font(None, 36)
-        text_surface = font.render(maze_size, True, (255, 255, 255))
-        text_rect = text_surface.get_rect(center=(400, 100))
-        screen.blit(text_surface, text_rect)
 
         # #####################################################
-        
-        # CheckBox for boolean value to show or hide visualization using pygame library
-        checkbox_rect = pygame.Rect(300, 500, 20, 20)
-        pygame.draw.rect(screen, (255, 255, 255), checkbox_rect, 2)
+        checkbox_text = "Show Visualization" if show_training_visualization else "Hide Visualization"
+        checkbox_font = pygame.font.Font(None, 24)
+        checkbox_text_surface = checkbox_font.render(checkbox_text, True, (0, 0, 0))
+        checkbox_text_rect = checkbox_text_surface.get_rect(center=(400, 500))
+        screen.blit(checkbox_text_surface, checkbox_text_rect)
+
+        # Draw CheckBox for boolean value to show or hide visualization
+        checkbox_rect = pygame.Rect(300, 490, 20, 20)
+        pygame.draw.rect(screen, (255,255,255), checkbox_rect, 2)
 
         # change value of checkbox_state when clicked
         if pygame.mouse.get_pressed()[0] and checkbox_rect.collidepoint(mouse_pos):
@@ -65,23 +72,7 @@ def main_menu():
             pygame.draw.rect(screen, (0, 255, 0), checkbox_rect)
         else:
             pygame.draw.rect(screen, (255, 0, 0), checkbox_rect)
-
-        checkbox_text = "Show Visualization" if show_training_visualization else "Hide Visualization"
-        checkbox_font = pygame.font.Font(None, 24)
-        checkbox_text_surface = checkbox_font.render(checkbox_text, True, (255, 255, 255))
-        checkbox_text_rect = checkbox_text_surface.get_rect(center=(400, 500))
-        screen.blit(checkbox_text_surface, checkbox_text_rect)
-
-        
-        
-
-
-
         # #####################################################
-
-        
-
-        
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
