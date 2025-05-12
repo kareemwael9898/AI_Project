@@ -56,7 +56,7 @@ def draw_training_state(env, screen, font, episode, epsilon, total_reward):
     pygame.display.flip()
 
 def train_q_learning(env, episodes=1000, alpha=0.1, gamma=0.95,
-                    epsilon=0.2, epsilon_decay=0.995, min_epsilon=0.01):
+                    epsilon=0.2, epsilon_decay=0.995, min_epsilon=0.01, with_visualization=True):
     q_table = np.zeros((GRID_HEIGHT * GRID_WIDTH, env.action_space.n))
 
     for episode in range(episodes):
@@ -92,8 +92,11 @@ def train_q_learning(env, episodes=1000, alpha=0.1, gamma=0.95,
             total_reward += reward
 
             # Draw training state
-            draw_training_state(env, training_screen, font, episode, epsilon, total_reward)
-            training_clock.tick(Frame_RATE)  # Limit to 30 FPS for visualization
+            if with_visualization:
+                draw_training_state(env, training_screen, font, episode, epsilon, total_reward)
+                training_clock.tick(Frame_RATE)  # Limit to 30 FPS for visualization
+            else:
+                training_clock.tick(1200)  # Limit to 1200 FPS for non-visualization to show progress
 
         # Decay exploration rate
         epsilon = max(min_epsilon, epsilon * epsilon_decay)

@@ -31,7 +31,7 @@ class MazeEnv(gym.Env):
 
     def _generate_maze(self):
         """Generate maze using randomized Prim's algorithm"""
-        maze = np.ones((GRID_HEIGHT, GRID_WIDTH), dtype=int)  
+        maze = np.ones((GRID_HEIGHT, GRID_WIDTH), dtype=int)
         walls = []
         x, y = self.start
         maze[y][x] = 0
