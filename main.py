@@ -59,14 +59,15 @@ def main_menu():
         pygame.draw.rect(screen, (255,255,255), checkbox_rect, 2)
 
         # change value of checkbox_state when clicked
-        if pygame.mouse.get_pressed()[0] and checkbox_rect.collidepoint(mouse_pos):
-            show_training_visualization = not show_training_visualization
-            
-            # Wait for the next click to change the state
-            while pygame.mouse.get_pressed()[0]:
-                for event in pygame.event.get():
-                    if event.type == pygame.MOUSEBUTTONUP:
-                        break
+        if pygame.mouse.get_pressed()[0]:
+            if checkbox_text_rect.collidepoint(mouse_pos) or checkbox_rect.collidepoint(mouse_pos):
+                show_training_visualization = not show_training_visualization
+                
+                # Wait for the next click to change the state
+                while pygame.mouse.get_pressed()[0]:
+                    for event in pygame.event.get():
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            break
 
         if show_training_visualization == True:
             pygame.draw.rect(screen, (0, 255, 0), checkbox_rect)
